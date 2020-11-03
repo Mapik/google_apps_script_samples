@@ -1,6 +1,7 @@
 <img src="https://github.com/Mapik/google_apps_script_samples/blob/main/utils/google-apps-script-1.png">
 
 # Google Apps Script samples
+> Automation make life easier. 
 
 <br/>
 
