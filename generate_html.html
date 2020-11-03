@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(takeData);
+      
+      function drawChart(){
+		  var div = document.getElementById('div1');
+		  div.innerHTML = 'start drawChart';
+		  var opts = {sendMethod: 'auto'};
+		  // Replace the data source URL on next line with your data source URL.
+		  var query = new google.visualization.Query('link_to_spreadsheet', opts);
+		  // Optional request to return only column C and the sum of column B, grouped by C members.
+		  query.setQuery('select A, B limit 5');
+		  var div = document.getElementById('div2');
+		  div.innerHTML = 'before sending query';
+		  // Send the query with a callback function.
+		  query.send(handleQueryResponse);
+      }
+      
+      function takeData(){
+		  var div = document.getElementById('div1');
+		  div.innerHTML = 'start takeData';
+		  google.script.run.withSuccessHandler(handleQueryResponse).doSomething()
+      }
+
+
+      function handleQueryResponse(response) {
+		  var div = document.getElementById('div3');
+		  div.innerHTML = 'Start handleQuery';
+		  var div = document.getElementById('div4');
+		  div.innerHTML = JSON.stringify(response);
+		  var data = google.visualization.arrayToDataTable(response); //.getDataTable();
+		  var div = document.getElementById('div5');
+		  div.innerHTML = data;
+		  var options = {
+			  title: 'Company Performance',
+			  curveType: 'function',
+			  legend: { position: 'bottom' }
+			};
+		  var chart = new google.visualization.LineChart(document.getElementById('div6'));
+		  chart.draw(data, options);
+      }
+
+    </script>
+  </head>
+  <body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+    <div id="div4"></div>
+    <div id="div5"></div>
+    <div id="div6"></div>
+    <div id="div7"></div>
+    <div id="div8"></div>
+    <div id="div9"></div>
+    <div id="div10"></div>
+    <div id="chart_div"></div>
+  </body>
+</html>
